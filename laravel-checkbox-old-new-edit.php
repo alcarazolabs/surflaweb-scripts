@@ -62,5 +62,31 @@
 </div>
 </div>
 
+//3. If you want disable all the checkboxes  but not the checkbox of the product when edit, just add and else put disabled.
+ name="checkboxQualities[]"
+            @if(is_array(old('checkboxQualities')) && in_array("$quality->id", old('checkboxQualities')))
+                    checked
+            @elseif(is_array($product_qualities) && in_array("$quality->id", $product_qualities))
+              checked
+            @else
+                disabled
+            @endif>
+//this will disable the rest of checkbox except the checkbox that belogns to the product.. in this case his quality.
+                
+                
+//4. The next js function let disable the rest of checkboxes when one is checked
+                
+ @section('js')
+  <script type="text/javascript">
+        //Funcion para desactivar el resto de checkbox cuando un checkbox es marcado.
+        
+        function ckChange(el) {
+            var ckName = document.getElementsByName(el.name);
+            for (var i = 0, c; c = ckName[i]; i++) {
+                c.disabled = !(!el.checked || c === el);
+            }
+        }
 
+  </script>
+@endsection
 ?>
