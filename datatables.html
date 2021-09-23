@@ -1,0 +1,169 @@
+<!-- CSS --->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
+<!-- Javascripts -->
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+
+
+@extends('plantilla.plantilla')
+
+@section('titulo','Usuarios Registrados')
+
+@section('crudtitulo')
+<li class="breadcrumb-item"><i class="fas fa-map-marker-alt"></i> Usuarios</li>
+
+@endsection
+
+
+@section('custom_css')
+  <style type="text/css">
+  .reduce-margin{
+      margin-bottom: 0px !important;
+
+  }
+
+  /* For Mobile Portrait View */
+@media screen
+  and (max-device-width: 480px)
+  and (orientation: portrait){
+  table  td:nth-child(4){
+     background-color: red;
+     display: table;
+     word-wrap: break-word;
+    }
+}
+ 
+/* For Mobile Landscape View */
+@media screen
+  and (max-device-width: 640px)
+  and (orientation: landscape){
+  table  td:nth-child(4){
+      background-color: red;
+      display: table;
+      word-wrap: break-word;
+    }
+}
+ 
+/* For Mobile Phones Portrait or Landscape View */
+@media screen
+  and (max-device-width: 640px){
+   table td:nth-child(4){
+      background-color: red;
+      display: table;
+      word-wrap: break-word;
+    }
+}
+ 
+
+  </style>
+@endsection
+
+@section('contenido')
+
+@include('plantilla.mensajes')
+
+<!-- Botones al lado derecho para crear un nuevo registro -->
+<div class="text-right">
+       
+       <a title="Empleados" href="{{ route('admin.employees.index') }}" class="btn btn-success">
+       <i class="fas fa-arrow-circle-right"></i> Empleados</a> 
+       
+       <a title="Nuevo usuario" href="{{ route('admin.users.create') }}" class="btn btn-success">
+        <i class="fas fa-plus-square"></i> Nuevo Registro</a>
+    
+</div>
+
+<nav class="navbar navbar-light reduce-margin float-left">
+  <form class="form-inline">
+    <input name="buscarpornombre" value="{{ old('buscarpornombre', request()->buscarpornombre) }}" autocomplete="off" class="form-control mr-sm-2" type="search" placeholder="Nombre.." aria-label="Search">
+  
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Buscar</button>
+    &nbsp;
+        <a title="Refrescar vista" href="{{ route('admin.users.index') }}" class="btn btn-success">
+        <i class="fas fa-sync-alt"></i></a>
+    
+  </form>
+</nav>
+
+@endsection
+
+@section('tabla')
+<!-- Botones al lado derecho para exportar a pdf/excel -->
+<div class="text-right" style="margin-bottom:5px;">
+ 
+  <a title="Exportar usuarios a Excel" href="{{ route('admin.users.exportToExcel') }}" class="btn btn-success btn-sm">
+  <i class="far fa-file-excel"></i> Excel</a>
+
+
+  <a title="Exportar usuarios a pdf" href="{{ route('admin.users.exportToPdf') }}" class="btn btn-danger btn-sm">
+  <i class="fas fa-file-pdf"></i> PDF</a>
+
+</div>
+
+
+  <table class="table table-striped table-bordered dt-responsive nowrap">
+    <thead class="">
+  
+    <tr>
+      <th>#</th>
+      <th>Tipo de Usuario</th>
+      <th>Correo Usuario</th>
+      <th>Empleado </th>
+      <th>Tipo de Empleado</th>
+      <th>Fecha de Registro</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  @foreach($users as $index => $user)
+    <tr>
+      <th data-title="#">{{ $users->firstItem() + $index }}</th>
+
+      <td data-title="Tipo Usuario">{{ $user->name }}</td>
+      <td data-title="Correo Usuario">{{ $user->email }}</td>
+      <td data-title="Empleado">{{ optional($user->employee)->name }} {{ optional($user->employee)->last_name }}</td>
+      <td data-title="Tipo Empleado">{{ $employee->getTypeEmployee(optional($user->employee)->employee_type_id) }}</td>
+            
+      <td data-title="Fecha Registro">{{ $user->created_at }}</td>
+
+    <td data-title="Acción">
+        <a title="Ver registro" href="{{ route('admin.users.show', $user->id)}}" class="btn btn-info btn-sm">
+        <i class="fas fa-eye"></i> </a>
+
+        <a title="Editar registro" href="{{ route('admin.users.edit', $user->id)}}" class="btn btn-success btn-sm">
+        <i class="fa fa-edit"></i> </a>
+
+        <a title="Eliminar registro" href="{{ route('admin.users.confirm', $user->id) }}" class="btn btn-danger btn-sm">
+        <i class="fa fa-trash-alt"></i> </a>
+     </td>
+
+    </tr>
+  @endforeach
+   </tbody>
+   </table>
+
+
+   <div class="form-inline">
+   <p>Total de Registros: {{ $users->total() }} </p> &nbsp;
+    {{ $users->links() }}
+  </div>
+  
+
+
+@endsection 
+
+
+@section('js')
+  <script>
+    $(document).ready(function() {
+    $('table').DataTable({"paging": false, "info" : false });
+  
+    });
+  </script>
+
+@endsection
