@@ -30,6 +30,19 @@ $buyer->qualities()->sync($data); //sync -> update, write or delete
 $buyer->qualities()->attach($data); //attach you can append a lot of data without delete/update
 
 
+// Example of sync for pivot table 2:
+/*
+- event_id
+- participant_id
+- state_payment (SI/NO)
+*/
+ $extra = array(                  
+       'state_payment' => $request->state_payment
+  );
+
+  $participant->event()->sync([$request->event => $extra]);
+
+
 ########### REGISTER ARRAY USING ATTACH TO A PIVOT TABLE:
 // Table pivot columns: 
 
