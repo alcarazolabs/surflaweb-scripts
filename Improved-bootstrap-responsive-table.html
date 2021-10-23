@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Responsiva</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Autor: Freddy Alcarazo @surflaweb - creatorpart@gmail.com -->
+
+   	 <style type="text/css">
+
+
+		  @media screen and (max-device-width: 480px) and (orientation: portrait) {
+			  .table{
+				/*font-family: "Trebuchet MS"*/
+				 font-family: sans-serif; 
+			  }
+				.table thead th{
+					/*Prevent wrap text*/
+					width: 1px;
+    				white-space: nowrap; 
+					color: #9c9e9a;
+					 font-size: 78%; 
+				}
+				td {
+					/*prevent wrap-text*/
+					 white-space: nowrap; 
+					font-weight: bold;
+					font-size: 85%; 
+				}
+				 .text-truncated{
+					white-space: nowrap;
+					text-overflow:ellipsis;
+					overflow: hidden;
+					max-width:200px;
+					
+				}
+				
+			}
+
+
+			/* For Mobile Landscape View */
+
+			@media screen and (max-device-width: 640px) and (orientation: landscape) {
+				.table{
+				/*font-family: "Trebuchet MS"*/
+				 font-family: sans-serif; 
+			  }
+				.table thead th{
+					/*Prevent wrap text*/
+					width: 1px;
+    				white-space: nowrap; 
+					color: #9c9e9a;
+					 font-size: 78%; 
+				}
+				td {
+					/*prevent wrap-text*/
+					 white-space: nowrap; 
+					font-weight: bold;
+					font-size: 85%; 
+				}
+				 .text-truncated{
+					white-space: nowrap;
+					text-overflow:ellipsis;
+					overflow: hidden;
+					max-width:200px;
+					
+				}
+			}
+
+
+			/* For Mobile Phones Portrait or Landscape View */
+
+			@media screen and (max-device-width: 640px) {
+				.table{
+				/*font-family: "Trebuchet MS"*/
+				 font-family: sans-serif; 
+			  }
+				.table thead th{
+					/*Prevent wrap text*/
+					width: 1px;
+    				white-space: nowrap; 
+					color: #9c9e9a;
+					 font-size: 78%; 
+				}
+				td {
+					/*prevent wrap-text*/
+					 white-space: nowrap; 
+					font-weight: bold;
+					font-size: 85%; 
+				}
+				 .text-truncated{
+					white-space: nowrap;
+					text-overflow:ellipsis;
+					overflow: hidden;
+					max-width:200px;
+					
+				}
+			}
+			 
+						
+    </style>
+
+</head>
+<body>
+
+
+	<div class="container">
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<th>Código</th>
+								<th>Nombres</th>
+								<th>Area de Trabajo</th>
+								<th>Correo</th>
+								<th>Acerca de Mi</th>
+								<th>Verificado</th>
+							</thead>
+							
+							<tbody>
+								<tr>
+									
+									<td>PM-06</td>
+									<td>Freddy Daniel Alcarazo Ibañez</td>
+									<td>Software Development</td>
+									<td>creatorpart@gmail.com</td>
+									<td class="text-truncated">
+										<a tabindex="0"
+										 class="popover-dismiss"
+										  data-placement="bottom"
+										   role="button"
+										    data-toggle="popover"
+											 data-trigger="focus" 
+											data-content="I started to create software since the 15 year old and started to learn many programming languages">
+	
+										I started to create software since the 15 year old and started to learn many programming languages
+										</a>
+										</td>
+									<td>✔️</td>
+								</tr>
+								
+								<tr>
+									<td>PM-05</td>
+									<td>Willim Fernando Lamadrid</td>
+									<td>SCRUM Master</td>
+									<td>wal@gmail.com</td>
+									<td class="text-truncated">
+										<a tabindex="0"
+										 class="popover-dismiss"
+										  data-placement="bottom"
+										   role="button"
+										    data-toggle="popover"
+											 data-trigger="focus" 
+											 title="Acerca de mi." data-content="I went to the University and then I started taking online course and after a time I converted in a fullstack
+											 developer. Now I'm scrum Master at Google. ">
+	
+											I went to the University and then I started taking online courses and after a time I converted in a fullstack
+											developer. Now I'm scrum Master at Google. 
+										</a>
+										</td>
+									<td>✔️</td>
+								</tr>
+
+								<tr>
+									<td>PM-04</td>
+									<td>Yony Soprano Galvez </td>
+									<td>Marketing and Management</td>
+									<td>tonysoprano@gmail.com</td>
+									<td class="text-truncated">
+										<a tabindex="0"
+										 class="popover-dismiss"
+										  data-placement="bottom"
+										   role="button"
+										    data-toggle="popover"
+											 data-trigger="focus" 
+											 title="Acerca de mi." data-content=" I have a degree in MBA. I have managed many business and have solved many real life problems of marketing.">
+	
+											 I have a degree in MBA. I have managed many business and I have solved many real life problems of marketing.
+										</a>
+										</td>
+									<td>❌</td>
+								</tr>
+							
+							</tbody>
+						
+						</table> 
+
+						
+
+
+
+						
+					</div>
+				</div>
+			</div>
+			
+		
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script>	
+
+		$(document).ready(function(){
+			$('.popover-dismiss').popover({
+				trigger: 'focus'
+			})
+
+
+		});
+
+		</script>
+
+
+</body>
+</html>
