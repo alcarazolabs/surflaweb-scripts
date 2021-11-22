@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer IoT con ESP8266 y Firebase</title>
+    
+    <!-- Incluir bootstrap 4-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+</head>
+<body>
+    
+    <nav class="navbar navbar navbar-dark bg-dark sd ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img
+              src="https://www.pyther.com/wp-content/uploads/2020/01/iot-icon.png"
+              alt="" width="30" height="24" class="d-inline-block align-text-top">
+              Mi primer IoT con ESP8266 y Firebase
+          </a>
+          <h3></h3>
+        </div>
+      </nav>
+    
+<div id="app">
+      <!-- Tarjetas de variables -->
+
+      <div class="container px3 mt-2">
+        <div class="row gx-4">
+          
+          
+          <div class="col-sm-4">
+            <div class="card " >
+              <div class="card-header" id="humedadCard" style="background-color: #00D8FF;">
+                Humedad
+              </div>
+              <div class="card-body">
+    
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-8" id="humedad">
+                      <h1 class="card-title display-3">{{this.humedad}}</h1>
+                    </div>
+                    <div class="col-sm-4">
+                      <h4 class="card-title ">%</h4>
+                    </div>
+    
+                  </div>
+                </div>
+    
+                <h6 class="card-subtitle mb-2 text-muted  ">Humedad</h6>
+              </div>
+            </div>
+    
+          </div>
+    
+          <div class="col-sm-4">
+            <div class="card ">
+              <div class="card-header" id="temperaturaCard" style="background-color: #FF9E00;">
+                Temperatura
+              </div>
+              <div class="card-body">
+    
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-8" id="temperatura">
+                      <h1 class="card-title display-3">{{this.temperatura}}</h1>
+                    </div>
+                    <div class="col-sm-4">
+                      <h4 class="card-title ">°C</h4>
+                    </div>
+    
+                  </div>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted  ">Temperatura</h6>
+              </div>
+            </div>
+    
+          </div>
+          <div class="col-sm-4">
+            <div class="card ">
+              <div class="card-header" id="co2Card" style="background-color: #B2B4B3;">
+                CO2
+              </div>
+              <div class="card-body">
+    
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-8" id="co2">
+                      <h1 class="card-title display-3">{{this.co2}}</h1>
+                    </div>
+                    <div class="col-sm-4">
+                      <h4 class="card-title ">%</h4>
+                    </div>
+    
+                  </div>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted  ">Dióxido de Carbono</h6>
+              </div>
+            </div>
+    
+          </div>
+    
+        </div>
+      </div>
+
+
+
+      
+      <div class="container px3 mt-2">
+        <div class="row gx-4">
+          
+          
+          <div class="col-sm-12">
+            <h4>Gráficos</h4>
+            <v-chart id="m1"  :options="option_temperatura"/>
+
+          </div>
+        </div>
+    </div>
+
+    
+ </div>
+    <!-- Incluir Vue.js v.2 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+     <!-- Incluir vuew-echars para mostrar gráficos -->
+   <script src="https://cdn.jsdelivr.net/npm/echarts@4.1.0/dist/echarts.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue-echarts@4.0.2"></script>
+
+
+
+
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+        import { getDatabase, set, ref, child, get, onValue  } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBulF1z-fr38tUAS-vSGwyfdcHq8JxBBHI",
+            authDomain: "myfirstiotv2.firebaseapp.com",
+            databaseURL: "https://myfirstiotv2-default-rtdb.firebaseio.com",
+            projectId: "myfirstiotv2",
+            storageBucket: "myfirstiotv2.appspot.com",
+            messagingSenderId: "882478619432",
+            appId: "1:882478619432:web:6d5f295620cc73fd7e4e1d",
+            measurementId: "G-X2L2KVC923"
+        };
+        //Inicializar firebase
+        const firebase = initializeApp(firebaseConfig);
+
+
+        const app = new Vue({
+            el:'#app',
+            components: {
+                    "v-chart": VueECharts
+            },
+            data:{
+            titleApp: 'Mi Primer IoT',
+            humedad: 0,
+            temperatura: 0,
+            co2: 0,
+            option_temperatura : {
+                    xAxis: {
+                        type: 'category',
+                        data: []
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                        data: [],
+                        type: 'line'
+                        }
+                    ]
+            },
+
+
+            },
+            computed:{
+                
+            },
+
+            mounted(){
+               this.getData()
+               this.fillGraph()
+            },
+            methods:{
+               getData: function(){
+                const db = getDatabase();
+                onValue(ref(db, '/casa/'), (snapshot) => {
+
+                    this.humedad = snapshot.val().humedad;
+                    this.temperatura = snapshot.val().temperatura;
+                    this.co2 = snapshot.val().co2;
+
+                    }, {
+                    onlyOnce: false
+                    });
+               },
+
+               fillGraph(){
+                const db = getDatabase();
+                onValue(ref(db, '/casa_log/temperatura'), (snapshot) => {
+                    this.option_temperatura.xAxis.data = [];
+                    this.option_temperatura.series[0].data = [];
+
+                    snapshot.forEach((item)=>{
+                        this.option_temperatura.xAxis.data.push("Temp #"+item.val());
+                        this.option_temperatura.series[0].data.push(item.val());
+                     })
+                    }, {
+                    onlyOnce: false
+                    });
+                console.log(this.option_temperatura.xAxis.data);
+
+               },
+
+            },
+      });
+
+      </script>
+
+
+
+
+</body>
+</html>
