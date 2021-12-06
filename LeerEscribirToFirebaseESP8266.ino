@@ -3,10 +3,10 @@
 #include <FirebaseESP8266.h>
 
 // Set these to run example.
-#define FIREBASE_HOST "myfirstiotv2-default-rtdb.firebaseio.com"
-#define FIREBASE_AUTH "1busiJZ9bMWptrygatRw1qI15sYtgEEhP37WFYv4"
-#define WIFI_SSID "Tokyo"
-#define WIFI_PASSWORD "942918777"
+#define FIREBASE_HOST "xxxxxxxxxx.firebaseio.com"
+#define FIREBASE_AUTH "xxxxxxxxx"
+#define WIFI_SSID "MyRed"
+#define WIFI_PASSWORD "clave123456"
 
 // Declare the Firebase Data object in the global scope
 FirebaseData firebaseData;
