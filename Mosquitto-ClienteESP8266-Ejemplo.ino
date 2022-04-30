@@ -7,7 +7,6 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-#define LED 13
 
 char *server = "192.168.0.11";
 int port = 1883;
