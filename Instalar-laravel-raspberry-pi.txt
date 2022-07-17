@@ -1,0 +1,45 @@
+
+ Guia complementaria: https://github.com/alcarazolabs/surflaweb-scripts/blob/main/6-Manual%20Instalar%20servidor%20web%20completo%20en%20Ubuntu%20para%20trabajar%20con%20laravel.pdf
+
+ 0. Instalar apache2
+  sudo apt install apache2
+
+ 1. Instalar default-mysql-server
+ 2. Cambiar clave mysql-mariadb:
+   ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+   FLUSH PRIVILEGES;
+   exit;
+  #Iniciar sesión
+  mysql -u root -p 
+
+ Fuente: https://linuxconfig.org/how-to-change-mariadb-user-password
+
+ 3. Instalar php
+ https://jclopex.medium.com/como-instalar-apache-y-php-7-4-en-debian-10-buster-8267ce1165f8
+
+ 3.1 Instalar certificados
+   sudo apt -y install lsb-release apt-transport-https ca-certificates 
+ 3.2 Descargar la llave gpg
+ sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+ 3.3 Agregar repositorio php:
+ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+
+ 3.4 Actualizar:
+ sudo apt update
+
+ 3.5 Instalar php
+ sudo apt install -y php7.4-gd php7.4-mbstring php7.4-xml php-zip libapache2-mod-php7.4 php7.4-mysql php-mysql
+
+ 4. Instalar phpmyadmin:
+  sudo apt-get install phpmyadmin 
+ Si no se conecta, seguir la sgt guia:
+ https://lindevs.com/install-phpmyadmin-on-raspberry-pi/
+
+ Soluciona error phpmyadmin con mysql:
+ - Loguearse: mysql -u root -p luego ejecutar el comando: 
+# Crear usuario:
+ CREATE USER 'freddy'@'localhost' IDENTIFIED BY '123456';
+ GRANT ALL PRIVILEGES ON *.* TO 'freddy'@'localhost' WITH GRANT OPTION;
+
+
+
