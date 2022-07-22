@@ -1,0 +1,40 @@
+ <TableLayout
+                        android:id="@+id/tableLayout"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+ private fun setupTable(){
+        val tableRow0 = TableRow(requireContext())
+        tableRow0.setBackgroundResource(R.color.gray)
+        //Crear Headers para la tabla
+        val textView0 = TextView(requireContext())
+        textView0.text=" Mes "
+        textView0.setTextColor(Color.BLACK)
+        //agregar textView a la fila de la tabla:
+        tableRow0.addView(textView0)
+        val textView1 = TextView(requireContext())
+        textView1.text=" Cantidad de Ventas "
+        textView1.setTextColor(Color.BLACK)
+        //agregar textView a la fila de la tabla:
+        tableRow0.addView(textView1)
+        //Agregar fila al tableLayout
+        binding.tableLayout.addView(tableRow0)
+
+        for (i in 1..5){
+            val tblRow = TableRow(requireContext())
+            val tv0 = TextView(requireContext())
+            tv0.text="Mes $i "
+            tv0.gravity=Gravity.CENTER
+            tblRow.addView(tv0)
+
+            val tv1 = TextView(requireContext())
+            tv1.text=" ${i*10} "
+            tv1.gravity=Gravity.CENTER
+            tblRow.addView(tv1)
+            binding.tableLayout.addView(tblRow)
+        }
+
+    }
