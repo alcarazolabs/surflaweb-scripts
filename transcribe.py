@@ -3,7 +3,16 @@ import time
 import urllib
 import json
     
-transcribe_client = boto3.client('transcribe')
+AWS_DEFAULT_REGION = "us-east-1"
+AWS_ACCESS_KEY_ID ="XXX"
+AWS_SECRET_ACCESS_KEY = "XXXX"
+
+#transcribe_client = boto3.client('transcribe')
+# connect by using credentias
+transcribe_client = boto3.client('transcribe', aws_access_key_id=AWS_ACCESS_KEY_ID,
+                                                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                                                    region_name=AWS_DEFAULT_REGION)
+
 JOB_NAME = "Example-job"
 
 def transcribe_file(job_name, file_uri, transcribe_client):
