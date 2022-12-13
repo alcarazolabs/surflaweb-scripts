@@ -15,6 +15,14 @@ transcribe_client = boto3.client('transcribe', aws_access_key_id=AWS_ACCESS_KEY_
 
 JOB_NAME = "Example-job"
 
+# Obtener el nombre/path del ultimo archivo subido al bucket.
+s3 = boto3.client('s3')
+objs = s3.list_objects_v2(Bucket='max9814audiofiles')['Contents']
+last_added = [obj['Key'] for obj in sorted(objs, key=get_last_modified)][-1]
+
+print(last_added)
+
+
 def transcribe_file(job_name, file_uri, transcribe_client):
     transcribe_client.start_transcription_job(
         TranscriptionJobName=job_name,
