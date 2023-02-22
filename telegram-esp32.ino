@@ -3,12 +3,12 @@
 #include <UniversalTelegramBot.h> //Version Instalada: 1.3.0 depende de ArduinoJson instalar version 6.15.2
 
 // Reemplazar con los datos de tu red wifi
-#define WIFI_SSID "WILLIAN-2.4G-pJAt"
-#define WIFI_PASSWORD "942900777"
+#define WIFI_SSID "xxxxxx"
+#define WIFI_PASSWORD "xxxxx"
 
 
 //Token de Telegram BOT se obtenienen desde Botfather en telegram
-#define BOT_TOKEN "6042934386:AAEpMY6E7WqFroNRKB55CKUCEDKBa729YhA"
+#define BOT_TOKEN "xxxx"
 const unsigned long tiempo = 1000; //tiempo medio entre mensajes de escaneo
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
@@ -21,7 +21,7 @@ int estadoLed2 = 0;
 int inicio = 1;
 String chat_id;
 
-#define ID_Chat "1439102486"//ID_Chat se obtiene de telegram
+#define ID_Chat "xxxxx"//ID_Chat se obtiene de telegram
 
 void mensajesNuevos(int numerosMensajes)
 {
