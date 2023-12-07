@@ -1,0 +1,181 @@
+# verificar version de python disponibles: ╰─>
+
+$ apt search python3 | grep "python3\."
+
+# Instalar el venv:
+
+# Instalar nueva version de python:
+
+$ sudo apt install python 3.9
+
+$ sudo apt install python3.9-venv
+
+# Instalar binutils
+
+$ sudo apt install binutils
+
+# Correr el comando python3, se verifica que aún esta la versión antigua.
+
+# Ver binarios de python para verificar que se instalo:
+
+cd /usr/bin
+ls python3*
+
+# Ver enlance simbolico actual de python:
+
+ls -ll python3
+
+# Actualizar pip
+
+python3.9 -m ensurepip --upgrade
+
+# Instalar una libreria con pip de python3.9
+
+python3.9 -m pip install SomePackage!!
+
+
+# ========================= Crear entorno virtual =================================:
+
+$ cd /home/orin/Documents/
+
+$ makdir python_test
+
+$ cd python_test
+
+# Crear entorno:
+
+$ python3.9 -m venv .envtest
+
+# Mostrar directorio del ven oculto:
+
+$ ls -la
+
+# Activar enviroment:
+$ source .envtest/bin/activate
+
+# Instalar alguna libreria........
+
+Actualizar pip:
+pip install --upgrade pip
+
+# Correr python y verificar version e importar librerias....
+
+$ python #Nota aún estamos dentro del venviroment.
+
+
+# Desactivar/salir del virtual enviroment creado:
+
+$ deactivate
+
+
+## -------------------------------------------------------------------------------
+
+Instalar bazel para aarch64:
+
+- Dependencias:
+
+sudo apt-get install build-essential openjdk-11-jdk python zip unzip
+
+
+wget https://github.com/bazelbuild/bazel/releases/download/1.2.1/bazel-1.2.1-dist.zip
+
+unzip bazel-1.2.1-dist.zip -d bazel bazel-1.2.1-dist
+
+cd bazel-1.2.1-dist/
+
+env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
+
+# Solución si da error lo de arriba ejecutar lo siguiente::
+
+Primero crear carpeta dentro de /home llamada "bazel_build"
+
+env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk --distdir=/home/bazel_build" bash ./compile.sh
+
+# Comentar linea de codigo si da error: gettid()..
+sed -i 's/static long gettid(void) { return syscall(__NR_gettid); }//' third_party/grpc/src/core/lib/gpr/log_linux.cc
+
+# Si todo fue exitoso, puedes copiar el ejecutable bazel a un directorio en tu PATH para facilitar su uso.
+
+sudo cp output/bazel /usr/local/bin/
+
+# Instalar TensorStore:
+
+- Dependencia:
+
+sudo apt-get install python3.9-dev
+
+pip install tensorstore (Sin embargo dará error ya que necesitamos tener el compilador gcc y g++ versión 10)
+
+- Versión actual de ubuntu 20.04 (jetpack 5.1.1)
+
+gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+- Actualizar versión de gcc:
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-10
+Actualizar la versión:
+
+Probar opción 1:
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 10
+
+Si luego de ejecutar gcc --version Se obtiene la version antigua, entonces ejecutar:
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 20 --slave /usr/bin/g++ g++ /usr/bin/g++-10
+
+- Verificar la versión ejecutando gcc --version.
+
+# Actualizar g++
+
+g++ :
+
+Forma tradicional:
+sudo apt-get purge g++ 
+sudo apt-get update 
+sudo apt-get upgrade 
+sudo apt-get install build-essential g++-10
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10
+sudo update-alternatives --config g++
+
+# Si con la forma tradicional no se puede actualizar la versión entonces solo crear enlace simbolico:
+which g++-10
+sudo ln -sf /usr/bin/g++-10 /usr/bin/g++
+
+
+# Instalar ahora si tensorstore
+
+$ pip install tensorstore
+
+$ pip install git+https://github.com/sanchit-gandhi/whisper-jax.git
+
+
+# Nota: Recomendable Instalar jax 0.4.5 y jaxlib 0.4.4 ya que asi lo requiere whisper-jax según la documentación.
+
+Sin embargo podemos instalar desde pip:
+
+$ pip install jax jaxlib
+$ pip install --upgrade jax jaxlib flax
+
+
+FIN DEL VIDEO.
+
+
+
+Build from source (No realizado..):
+
+1. Descargar la version jax-v0.4.5
+
+https://github.com/google/jax/releases/tag/jax-v0.4.5
+To build jaxlib without CUDA GPU or TPU support (CPU only), you can run:
+
+unzip jax-v0.4.5 -d jax
+cd jax..
+# Construir:
+
+python build/build.py
+
+# Instalar jaxlib
+
+pip install dist/*.whl  # installs jaxlib (includes XLA)
