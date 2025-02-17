@@ -1,0 +1,15 @@
+
+1. Crear carpeta 'components'
+2. ubicarse en la carpeta components copiar la ruta..
+
+cd components
+# Clonar repositorio
+git clone https://github.com/espressif/arduino-esp32.git -b release/v2.x arduino
+
+cd arduino
+
+git submodule update --init --recursive
+
+cd ../..
+
+idf.py menuconfig
