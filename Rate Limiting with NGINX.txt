@@ -1,0 +1,39 @@
+# Rate Limit con Nginx-Proxy: 
+
+1. Modificar o crear un archivo custom llamado nginx_custom_conf.conf y agregar la siguientes reglas:
+
+limit_req_zone $binary_remote_addr zone=limit_app:10m rate=1r/s;
+
+limit_req_status 429;
+limit_conn_status 429;
+
+
+Esto define una zona compartida para limitar IPs (1 requests por segundo).
+binary_remote_addr: le indica a nginx que convierta la ip del usuario a binario para ahorrar espacio.
+limit_app: es la zona que creamos para luego usarla en los dominios.
+10m: es el tamaño de memoria para almacenar las ips.
+
+1.1 Agregar archivo custom a un volumen del nginx-proxy
+
+- ./nginx_custom_conf.conf:/etc/nginx/conf.d/nginx_custom_conf.conf:ro
+
+
+2. Crear carpeta y archivo con nombre del dominio a proteger:
+ 2.1 crear carpeta vhost.d dentro del directorio donde esta el docker-compose.yml
+
+ 2.2 crear archivo que tenga nombre del dominio a proteger.
+     control3v.com
+
+ 2.3 Editar el archivo control3v.com y agregar la siguiente regla:
+
+    limit_req zone=limit_app burst=5 nodelay;
+
+	* Permite hasta 5 solicitudes en ráfaga (burst)
+
+ 2.4 Agregar al volumen de nginx-proxy :
+
+   ./vhost.d:/etc/nginx/vhost.d:ro
+
+
+Probar endpoint con curl haciendo mas de 20 peticiones para probar el limite.
+Ejecutar el script test-rate-limit.sh
