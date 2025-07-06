@@ -1,0 +1,32 @@
+# ISSUE: Perhaps iptables or your kernel needs to be upgraded.
+
+Donde: Jetson Orin Nano 8GB Developer Kit with Jetpack 6.1
+- OS: Ubuntu 22.04.5 LTS
+
+Pasos:
+1. Verificar la versión actual de docker:
+
+$ docker --versión
+
+2. Bajarnos de versión a la 27.3
+
+$ sudo apt-get install docker-ce-cli=5:27.3.0-1~ubuntu.22.04~jammy
+$ sudo apt-get install docker-ce=5:27.3.0-1~ubuntu.22.04~jammy
+
+3. Agregar el usuario docker al grupo:
+
+sudo usermod -aG docker ${USER}
+
+4. Comprobamos que el usuario está en el grupo docker:
+
+$ groups ${USER}
+
+5. Reiniciar:
+
+$ sudo reboot
+
+6. Verificar versión de docker:
+
+$ docker --versión
+
+Fin!
