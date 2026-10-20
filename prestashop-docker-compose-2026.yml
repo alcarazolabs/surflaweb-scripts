@@ -1,0 +1,52 @@
+version: '3'
+services:
+  mysql:
+    container_name: mysql-prestashop
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: prestashop_0x2026$  #Clave Base de Datos.
+      MYSQL_DATABASE: prestashop
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - prestashop_network
+
+  prestashop:
+    container_name: prestashop
+    image: prestashop/prestashop:latest
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    volumes:
+      - ./prestashop_data:/var/www/html #Crear carpeta
+    ports:
+      - 8080:80
+    environment:
+      DB_SERVER: mysql-prestashop
+      DB_NAME: prestashop
+      DB_USER: root
+      DB_PASSWD: prestashop_0x2026$
+    networks:
+      - prestashop_network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-prestashop
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    networks:
+      - prestashop_network
+
+networks:
+    prestashop_network:
+
+volumes:
+  db_data:
+  prestashop_data:
